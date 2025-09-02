@@ -1,6 +1,7 @@
 import requests
 from dotenv import load_dotenv
 import os
+from llama_cpp import Llama
 
 load_dotenv()
 
@@ -52,8 +53,6 @@ def fetch_data(food_items):
     return food_data
 
 
-
-
 def main():
     age = 20
     gender = "female"
@@ -77,6 +76,23 @@ def main():
     food_data = fetch_data(food_items)
     print(food_data)
     print(user_preference)
+
+    prompt = f"""
+    Here are the list of food items:
+    {food_items}
+    and here are the user preferences:
+    {user_preference}
+    Now analyze these inputs and check for any dietary restrictions or suggestions.
+    """
+
+    llm = Llama.from_pretrained(
+	repo_id="sfardin/diet_AI_model_gguf",
+	filename="unsloth.Q4_K_M.gguf",
+    verbose=False
+    )
+
+    output = llm(prompt)
+    print(output["choices"][0]["text"])
 
 if __name__ == "__main__":
     main()
