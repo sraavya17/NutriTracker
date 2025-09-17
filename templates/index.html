@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriTracker - Your Personal Nutrition Assistant</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-leaf"></i> NutriTracker</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section bg-light py-5">
+        <div class="container text-center">
+            <h1 class="display-4 text-success"><i class="fas fa-utensils"></i> Track Your Nutrition</h1>
+            <p class="lead">Get personalized nutrition analysis and recommendations based on your food intake</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Input Form -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h4><i class="fas fa-clipboard-list"></i> Your Information</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="nutrition-form">
+                            <!-- Food Items Section -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-apple-alt"></i> Food Items
+                                </label>
+                                <div id="food-items-container">
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control food-item" placeholder="Enter food item (e.g., apple, banana)" required>
+                                        <button type="button" class="btn btn-outline-danger remove-food-item" disabled>
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-outline-success btn-sm" id="add-food-item">
+                                    <i class="fas fa-plus"></i> Add Another Food Item
+                                </button>
+                            </div>
+
+                            <!-- User Preferences Section -->
+                            <div class="mb-4">
+                                <h5 class="text-success"><i class="fas fa-user"></i> Personal Information</h5>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="age" class="form-label">Age</label>
+                                        <input type="number" class="form-control" id="age" min="1" max="120" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="gender" class="form-label">Gender</label>
+                                        <select class="form-select" id="gender" required>
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="goal" class="form-label">Health Goal (Optional)</label>
+                                        <select class="form-select" id="goal">
+                                            <option value="">Select Goal</option>
+                                            <option value="weight_loss">Weight Loss</option>
+                                            <option value="weight_gain">Weight Gain</option>
+                                            <option value="muscle_gain">Muscle Gain</option>
+                                            <option value="maintenance">Maintenance</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="diet_preference" class="form-label">Diet Preference (Optional)</label>
+                                        <select class="form-select" id="diet_preference">
+                                            <option value="">Select Diet</option>
+                                            <option value="vegetarian">Vegetarian</option>
+                                            <option value="vegan">Vegan</option>
+                                            <option value="keto">Keto</option>
+                                            <option value="paleo">Paleo</option>
+                                            <option value="mediterranean">Mediterranean</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="calorie_target" class="form-label">Calorie Target (Optional)</label>
+                                        <input type="number" class="form-control" id="calorie_target" min="500" max="5000" placeholder="e.g., 2000">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="allergies" class="form-label">Allergies (Optional)</label>
+                                        <input type="text" class="form-control" id="allergies" placeholder="e.g., peanuts, dairy (comma-separated)">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="fas fa-chart-line"></i> Analyze Nutrition
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h4><i class="fas fa-chart-bar"></i> Nutrition Analysis</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="loading" class="text-center d-none">
+                            <div class="spinner-border text-success" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Analyzing your nutrition...</p>
+                        </div>
+
+                        <div id="results" class="d-none">
+                            <!-- Summary -->
+                            <div class="mb-4">
+                                <h5 class="text-info"><i class="fas fa-clipboard"></i> Summary</h5>
+                                <p id="summary-text" class="text-muted"></p>
+                            </div>
+
+                            <!-- Nutrient Comparison -->
+                            <div class="mb-4">
+                                <h5 class="text-info"><i class="fas fa-balance-scale"></i> Nutrient Analysis</h5>
+                                <div id="nutrient-comparison">
+                                    <!-- Dynamic content will be added here -->
+                                </div>
+                            </div>
+
+                            <!-- Recommendations -->
+                            <div class="mb-4">
+                                <h5 class="text-info"><i class="fas fa-lightbulb"></i> Recommendations</h5>
+                                <ul id="recommendations-list" class="list-unstyled">
+                                    <!-- Dynamic content will be added here -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="no-results" class="text-center text-muted">
+                            <i class="fas fa-info-circle fa-3x mb-3"></i>
+                            <p>Enter your food items and personal information to get started!</p>
+                        </div>
+
+                        <div id="error-message" class="alert alert-danger d-none">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span id="error-text"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p>&copy; 2025 NutriTracker. Your personal nutrition assistant.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Axios for API calls -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

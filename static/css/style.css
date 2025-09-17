@@ -1,0 +1,101 @@
+/* Custom styles for NutriTracker */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+    border-bottom: 3px solid #28a745;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: 600;
+}
+
+.btn-success {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background: linear-gradient(45deg, #20c997, #28a745);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.input-group .form-control {
+    border-right: none;
+}
+
+.remove-food-item {
+    border-left: none;
+}
+
+.nutrient-card {
+    background: #f8f9fa;
+    border-left: 4px solid #28a745;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.nutrient-card.low {
+    border-left-color: #dc3545;
+}
+
+.nutrient-card.high {
+    border-left-color: #ffc107;
+}
+
+.nutrient-card.ok {
+    border-left-color: #28a745;
+}
+
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+.recommendation-item {
+    background: #e7f3ff;
+    border-left: 4px solid #007bff;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+}
+
+.icon-large {
+    font-size: 1.2em;
+    margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}
